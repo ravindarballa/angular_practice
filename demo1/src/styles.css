@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+
+@theme {
+    /* You define your custom colors/fonts here instead of tailwind.config.js */
+    --color-brand-blue: #007bff;
+    --font-display: "Inter", sans-serif;
+}
