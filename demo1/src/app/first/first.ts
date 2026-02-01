@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CounterService } from '../../services/counter/counter';
+import { ApiService } from '../services/api';
 
 @Component({
   selector: 'app-first',
@@ -7,13 +8,16 @@ import { CounterService } from '../../services/counter/counter';
   providers: [CounterService],
 })
 export class First implements OnInit {
-  displayFirst = 0;
-  CounterService = inject(CounterService);
+  private apiService = inject(ApiService);
+  userList = this.apiService.userList;
+
   ngOnInit() {
-    this.CounterService.count$.subscribe((data) => (this.displayFirst = data));
+    console.log('first Component', this.userList());
   }
-  firstIncrement() {
-    console.log('First Increment Clicked');
-    this.CounterService.setCount(1);
+  sendData() {
+    const newUser = { name: 'Balla', email: 'balla@gmail.com' };
+    this.apiService.postData(newUser).subscribe(() => {
+      this.apiService.fetchData();
+    });
   }
 }

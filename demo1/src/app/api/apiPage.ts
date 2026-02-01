@@ -7,12 +7,15 @@ import { ApiService } from '../services/api';
 })
 export class ApiPage implements OnInit {
   private apiService = inject(ApiService);
-  userList = signal<any[]>([]);
-  ngOnInit(): void {
-    // Clean and correct: Only log the data once it arrives
-    this.apiService.fetchData().subscribe((data: any) => {
-      this.userList.set(data);
-      console.log('API Data received:', this.userList());
-    });
+
+  // Link your local variable directly to the Service Signal
+  userList = this.apiService.userList;
+
+  ngOnInit() {
+    this.apiService.fetchData(); // Load data on startup
+    console.log('API Page Component', this.userList());
+  }
+  deleteItem(id: number) {
+    console.log(id);
   }
 }
