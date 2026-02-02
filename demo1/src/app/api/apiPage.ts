@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ApiService } from '../services/api';
 
 @Component({
@@ -17,5 +17,6 @@ export class ApiPage implements OnInit {
   }
   deleteItem(id: number) {
     console.log(id);
+    this.apiService.userList.update((users: any[]) => users.filter((data:any) => data.id !== id));
   }
 }

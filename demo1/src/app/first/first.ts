@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { CounterService } from '../../services/counter/counter';
 import { ApiService } from '../services/api';
 
@@ -10,7 +10,7 @@ import { ApiService } from '../services/api';
 export class First implements OnInit {
   private apiService = inject(ApiService);
   userList = this.apiService.userList;
-
+  totalUsers = computed(() => this.apiService.userList().length);
   ngOnInit() {
     console.log('first Component', this.userList());
   }

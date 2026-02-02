@@ -1,22 +1,34 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, WritableSignal, inject, signal } from '@angular/core';
+import { catchError, of, shareReplay } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private http = inject(HttpClient);
   private url = 'http://localhost:3000/api/users';
 
-  // 1. The "Data Store" - Everyone listens to this
-  userList = signal<any[]>([]);
+  // WritableSignal to hold users
+  userList: WritableSignal<any[]> = signal([]);
 
-  // 2. The Fetcher - Updates the signal
-  fetchData() {
-    this.http.get(this.url).subscribe((data) => {
-      this.userList.set(data as any[]); // This updates the UI everywhere
-    });
+  constructor() {
+    // Initial fetch on service creation
+    this.fetchData();
   }
 
-  // 3. The Poster - Returns observable so component knows when it's done
+  // Fetch or refresh users from API
+  fetchData() {
+    this.http
+      .get<any[]>(this.url)
+      .pipe(
+        shareReplay(1),
+        catchError(() => of([])),
+      )
+      .subscribe((data) => {
+        this.userList.set(data);
+      });
+  }
+
+  // Post new user
   postData(newUser: any) {
     return this.http.post(this.url, newUser);
   }
