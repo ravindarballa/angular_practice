@@ -14,9 +14,7 @@ import { ApiPage } from './api/apiPage';
 export class App {
   counterService = inject(CounterService);
   ngOnInit() {
-    this.counterService.count$.subscribe((data: number) => {
-      console.log(data);
-    });
+    this.counterService.count$.subscribe((data: number) => {});
     console.log(this.counterService.count$);
   }
 }

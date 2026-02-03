@@ -1,8 +1,12 @@
-<h1>First Component</h1>
-<p class="text-sm font-medium text-gray-600">Showing {{ totalUsers() }} active records.</p>
-<button
-  (click)="sendData()"
-  class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all active:scale-95"
->
-  First Button
-</button>
+<div class="flex justify-center">
+  <div class="text-center w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-2">First Component</h1>
+    <p class="text-sm font-medium text-gray-600 mb-4">Showing {{ totalUsers() }} active records.</p>
+    <button
+      (click)="sendData()"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all active:scale-95"
+    >
+      Add Record
+    </button>
+  </div>
+</div>
