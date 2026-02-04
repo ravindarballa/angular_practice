@@ -32,4 +32,8 @@ export class ApiService {
   postData(newUser: any) {
     return this.http.post(this.url, newUser);
   }
+
+  DeleteData(id: number) {
+    return this.http.delete(`${this.url}/${id}`);
+  }
 }

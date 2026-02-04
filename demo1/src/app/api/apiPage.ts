@@ -25,6 +25,9 @@ export class ApiPage implements OnInit {
   }
   deleteItem(id: number) {
     console.log(id);
+    this.apiService.DeleteData(id).subscribe(() => {
+      this.apiService.fetchData();
+    });
     this.apiService.userList.update((users: any[]) => users.filter((data: any) => data.id !== id));
   }
   onClose() {
